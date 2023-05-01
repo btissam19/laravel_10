@@ -2,15 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PagesController;
+
+
 // use App\Http\Controllers\BlogController;
-
-
-route::get('/home',[PagesController::class,'index']);
-// route::get('/app',[PagesController::class,'applayout']);
-// route::get('/footer',[PagesController::class,'footerlayout']);
 // route::resource('/blogs',BlogController::class);
-
+Route::view('/home','index');
 Route::get('/', function () {
     return view('welcome');
 });

@@ -1,7 +1,7 @@
 @extends('welcome')
-@extends('layouts.app')
+@section('content')
 <!-- hero-->
-    <div class="hero-bg-image flex flex-col justify-center items-center space-y-9 text-center">
+    <div class="hero-bg-image flex flex-col justify-center items-center space-y-7">
         <h1 class="font-bold text-gray-100 text-5xl">WELCOME TO MY BLOG</h1>
         <a href="/"  class="rounded-lg px-6 py-3 bg-gray-100 text-gray-700 font-bold uppercase">start reading</a>
     </div>
@@ -63,3 +63,5 @@
 
    </div>
 </div>
+
+@endsection
