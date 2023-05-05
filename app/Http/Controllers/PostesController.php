@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view('blogs.index');
+    public function index(){
+    // {    $post=Post::all();
+    //       dd($post);
+        return view('blogs.index')
+        ->with('posts',Post::get());
+        
     }
 
     /**
@@ -19,7 +23,7 @@ class PostesController extends Controller
      */
     public function create()
     {
-        //
+        return view('blogs.create');
     }
 
     /**
