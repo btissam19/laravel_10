@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 { use HasFactory;
+    protected $fillabale=['title','slug','image_path','description','user_id' ];
     public function user(){
         return $this->belongsTo(User::class);
     }
