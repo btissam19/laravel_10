@@ -13,72 +13,56 @@ class PostesController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-    // {    $post=Post::all();
-    //       dd($post);
         return view('blogs.index')
         ->with('posts',Post::get());
         
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('blogs.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
-    {
+    {  
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'image_path' => 'required|mimes:jpg,png,jpeg|max:5048',
+            'image' => 'required|mimes:jpg,png,jpeg',
         ]);
         $slug= Str::slug($request->title, '-');
-     $newImageName=uniqid().'-'.$slug.'.'.$request->image_path->extension();
-     $request->image_path->move(public_path('images'),$newImageName);
+     $newImageName=uniqid().'-'.$slug.'.'.$request->image->extension();
+     $request->image->move(public_path('images'),$newImageName);
       
-     Post::create(['title'=>$request->input('title'),'description'=>$request->input('description'),
-     'image_path'=>$newImageName,'slug'=>$slug,'user_id'=>auth()->user()->id]);
-    return redirect('/blogs');
-
-
-        
+     Post::create(['title'=>$request->input('title'),
+     'description'=>$request->input('description'),
+     'image_path'=>$newImageName,
+     'slug'=>$slug,
+     'user_id'=>auth()->user()->id]);
+    return redirect('/blogs');    
+    }
+    public function show($slug)
+    {
+      return view('blogs.show')
+      ->with('post',Post::where('slug',$slug)->first());
+    }
+    public function edit($slug)
+    {
+        return view('blogs.edit')
+      ->with('post',Post::where('slug',$slug)->first());  
+      //the first post means name of varaiable wich we will use
+    }
+    public function update(Request $request,$slug)
+    {Post::where('slug',$slug)
+        ->update([
+            'title'=>$request->input('title'),
+            'description'=>$request->input('description'),
+            'slug'=>$slug,'user_id'=>auth()->user()->id]);
+            return redirect('/blogs'.$slug);  
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function destroy($slug)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Post::where('slug',$slug)->delete();
+        return redirect('/blogs')
+        ->with('message','the blog is deleted');
     }
 }

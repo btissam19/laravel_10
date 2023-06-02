@@ -13,7 +13,7 @@
        <div class="py-14">
         <label class="bg-gray-200 hover:bg-gray-700 text-gray-700 hover:text-gray-200 transition duration-300 cursor-pointer p-5 rounded-lg font-bold uppercase">
           <span>Select an image to upload </span>
-          <input type="file" name="image_path" class="hidden">
+          <input type="file" name="image" class="hidden">
        </div>
        <button type="submit" class="bg-green-400 hover:bg-gray-700 text-gray-700 hover:text-gray-200 transition duration-300 cursor-pointer p-5 rounded-lg font-bold uppercase">send post</button>
         </form>       
